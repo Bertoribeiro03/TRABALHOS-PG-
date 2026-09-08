@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel do Elenco — São Paulo FC</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-smooth-scroll="true" tabindex="0">
+
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-sp fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="#inicio">São Paulo FC · Painel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Abrir menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end offcanvas-lg" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title h5" id="offcanvasNavbarLabel">Menu</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Fechar"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" id="navbarNav">
+            <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="#elenco">Elenco</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section id="inicio">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="hero-slide">
+            <div>
+              <h1 class="display-5 fw-bold">Painel do Tricolor</h1>
+              <p class="lead">Gestão do elenco do São Paulo Futebol Clube</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="hero-slide slide-alt">
+            <div>
+              <h1 class="display-5 fw-bold">Temporada 2026</h1>
+              <p class="lead">Convocações, titulares e reservas em um só lugar</p>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="hero-slide slide-white">
+            <div>
+              <h1 class="display-5 fw-bold">Morumbis</h1>
+              <p class="lead">Nossa casa, nossa força</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Próximo</span>
+      </button>
+    </div>
+  </section>
+
+  <section id="elenco" class="py-5">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h2>Elenco</h2>
+          <p class="text-secondary mb-0" id="progressLabel">0/40 vagas preenchidas</p>
+          <div class="progress progress-sp mt-2" style="max-width: 260px;">
+            <div class="progress-bar" id="progressBar" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <div class="dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categoria: <span id="filterLabel">Todos</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><button class="dropdown-item" type="button" data-filtro="Todos">Todos</button></li>
+              <li><button class="dropdown-item" type="button" data-filtro="Goleiro">Goleiro</button></li>
+              <li><button class="dropdown-item" type="button" data-filtro="Defensor">Defensor</button></li>
+              <li><button class="dropdown-item" type="button" data-filtro="Meio-campo">Meio-campo</button></li>
+              <li><button class="dropdown-item" type="button" data-filtro="Atacante">Atacante</button></li>
+            </ul>
+          </div>
+          <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#addPlayerModal">Adicionar Jogador</button>
+        </div>
+      </div>
+
+      <div class="alert alert-warning d-none" id="noResultsAlert" role="alert">Nenhum jogador encontrado nesta categoria.</div>
+
+      <div class="text-center py-5" id="loadingSpinner">
+        <div class="spinner-border text-danger" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="text-secondary mt-2">Carregando elenco...</p>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 d-none" id="cardsContainer"></div>
+
+      <ul class="pagination mt-4" id="pagination"></ul>
+    </div>
+  </section>
+
+  <section id="sobre" class="py-5 bg-white">
+    <div class="container">
+      <h2 class="mb-4">Sobre o Clube</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Fundação:</strong> 25 de janeiro de 1930</li>
+            <li class="list-group-item"><strong>Estádio:</strong> Cícero Pompeu de Toledo (Morumbi)</li>
+            <li class="list-group-item"><strong>Cores:</strong> Vermelho, branco e preto</li>
+            <li class="list-group-item"><strong>Apelido:</strong> Tricolor Paulista</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <p class="text-secondary">
+            Este painel simula um sistema interno de gestão de elenco, permitindo cadastrar, filtrar,
+            consultar e remover jogadores utilizando os componentes do Bootstrap 5.3.
+          </p>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="h6">Fonte dos dados</h3>
+          <p class="small text-secondary mb-2">
+            Elenco profissional listado com base em fontes públicas (Wikipédia, situação de 1 de agosto de 2026).
+            Dados de jogo (como notas "overall" e imagens de rosto de videogame) não são utilizados por serem
+            conteúdo proprietário de terceiros.
+          </p>
+          <h3 class="h6">Privacidade e LGPD</h3>
+          <p class="small text-secondary mb-0">
+            Por minimização de dados, são exibidas apenas informações profissionais públicas dos atletas
+            (nome, número, posição, nacionalidade e função no elenco). Não são publicados data de nascimento,
+            fotografia ou qualquer dado sensível de jogadores reais. Este aviso reflete uma boa prática de
+            privacidade adotada no projeto e não constitui aconselhamento jurídico.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="py-5">
+    <div class="container">
+      <h2 class="mb-4">Contato</h2>
+      <div class="card" style="max-width: 480px;">
+        <div class="card-body">
+          <p class="mb-1"><strong>CT da Barra Funda</strong></p>
+          <p class="mb-1">Praça Roberto Gomes Pedrosa, 1 — São Paulo, SP</p>
+          <p class="mb-0">contato@saopaulofc.painel.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-4">
+    <div class="container text-center small">
+      Painel de Controle · São Paulo Futebol Clube — Projeto acadêmico com Bootstrap 5.3
+    </div>
+  </footer>
+
+  <div class="modal fade" id="addPlayerModal" tabindex="-1" aria-labelledby="addPlayerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5" id="addPlayerModalLabel">Adicionar Jogador</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addPlayerForm" class="row g-3" novalidate>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="inputNome" placeholder="Nome completo" required>
+                <label for="inputNome">Nome completo</label>
+                <div class="invalid-feedback">Informe o nome do jogador.</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="inputNascimento" required>
+                <label for="inputNascimento">Data de nascimento</label>
+                <div class="invalid-feedback">Informe a data de nascimento.</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="inputNumero" class="form-label">Número da camisa</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">Nº</span>
+                <input type="number" class="form-control" id="inputNumero" min="1" max="99" required>
+                <div class="invalid-feedback">Escolha um número entre 1 e 99.</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="inputPosicao" class="form-label">Posição</label>
+              <select class="form-select" id="inputPosicao" required>
+                <option value="" selected disabled>Selecione</option>
+                <option value="Goleiro">Goleiro</option>
+                <option value="Defensor">Defensor</option>
+                <option value="Meio-campo">Meio-campo</option>
+                <option value="Atacante">Atacante</option>
+              </select>
+              <div class="invalid-feedback">Selecione uma posição.</div>
+            </div>
+            <div class="col-12">
+              <div class="d-flex align-items-center gap-2">
+                <label for="overallRange" class="form-label mb-0">Nível de habilidade (Overall): <span id="overallValue">70</span></label>
+                <button type="button" class="btn btn-sm btn-outline-secondary info-btn" data-bs-toggle="popover" data-bs-trigger="focus" tabindex="0" title="Overall" data-bs-content="Nota geral do jogador, de 1 a 99.">?</button>
+              </div>
+              <input type="range" class="form-range" id="overallRange" min="1" max="99" value="70">
+            </div>
+            <div class="col-12 d-flex gap-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="checkTitular">
+                <label class="form-check-label" for="checkTitular">Titular</label>
+              </div>
+              <div class="form-check d-flex align-items-center gap-1">
+                <input class="form-check-input" type="checkbox" id="checkCapitao">
+                <label class="form-check-label" for="checkCapitao">Capitão</label>
+                <button type="button" class="btn btn-sm btn-outline-secondary info-btn" data-bs-toggle="popover" data-bs-trigger="focus" tabindex="0" title="Capitão" data-bs-content="O capitão veste a braçadeira e representa o time em campo.">?</button>
+              </div>
+            </div>
+            <div class="col-12 d-flex justify-content-end gap-2">
+              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Salvar Jogador</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="appToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="appToastBody"></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+</html>
