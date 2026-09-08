@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora simples</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <main>
+    <h1>Calculadora</h1>
+    <p>Descubra os resultados de quatro operações!</p>
+
+    <button onclick="alert('Boas-vindas ao site!')">Boas-vindas</button>
+    <button onclick="calcular()">Calcular</button>
+
+    <script>
+      document.write('<div id="resultados" aria-live="polite">Clique em Calcular para começar.</div>');
+
+      function calcular() {
+        const entrada1 = prompt("Digite o primeiro número:");
+        if (entrada1 === null) return;
+
+        const entrada2 = prompt("Digite o segundo número:");
+        if (entrada2 === null) return;
+
+        const numero1 = Number(entrada1.replace(",", "."));
+        const numero2 = Number(entrada2.replace(",", "."));
+
+        if (
+          entrada1.trim() === "" || entrada2.trim() === "" ||
+          !Number.isFinite(numero1) || !Number.isFinite(numero2)
+        ) {
+          alert("Digite dois números válidos!");
+          return;
+        }
+
+        const soma = numero1 + numero2;
+        const subtracao = numero1 - numero2;
+        const multiplicacao = numero1 * numero2;
+        const divisao = numero2 !== 0
+          ? numero1 / numero2
+          : "Não é possível dividir por zero";
+
+        const resultados =
+          "Soma: " + soma + "\n" +
+          "Subtração: " + subtracao + "\n" +
+          "Multiplicação: " + multiplicacao + "\n" +
+          "Divisão: " + divisao;
+
+        document.getElementById("resultados").innerText = resultados;
+        console.log(resultados);
+      }
+    </script>
+  </main>
+</body>
+</html>
