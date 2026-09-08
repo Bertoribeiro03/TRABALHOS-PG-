@@ -3,48 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Arquivo Torque: histórias e especificações de lendas JDM turbo.">
-  <title>Arquivo Torque — JDM em foco</title>
+  <meta name="description" content="Arquivo Torque: cadastre seu nome e participe de um leilão educativo de ícones JDM.">
+  <title>Arquivo Torque — Leilão JDM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header class="cabecalho" id="inicio">
     <div class="container nav">
       <a class="marca" href="#inicio" aria-label="Arquivo Torque, início">ARQUIVO <span>TORQUE</span></a>
       <nav class="menu" aria-label="Navegação principal">
-        <a href="#garagem">Garagem</a>
+        <a href="#garagem">Leilão</a>
         <a href="#cultura">Cultura</a>
         <a href="#sobre">Sobre</a>
       </nav>
+      <button class="botao-tema" id="alternar-tema" type="button" aria-pressed="false">Ativar modo claro</button>
     </div>
 
     <div class="container hero">
-      <p class="eyebrow">EST. 1990 — ARQUIVO JDM</p>
-      <h1 id="titulo-principal">Pressão, precisão<br>e <em>propósito.</em></h1>
+      <p class="eyebrow">ARQUIVO JDM / LEILÃO EDUCATIVO</p>
+      <h1 id="titulo-principal">Três lendas.<br>O próximo <em>lance é seu.</em></h1>
       <div class="hero-linha">
-        <p class="texto-descricao">Um recorte calmo e técnico das máquinas japonesas que transformaram o turbo, a engenharia e a cultura de garagem.</p>
-        <a class="botao" href="#garagem">Explorar acervo <span>↓</span></a>
+        <p class="texto-descricao">Skyline, Supra e RX-7 à sua escolha. Cadastre seu nome e dispute o maior lance nesta simulação.</p>
+        <a class="botao" href="#garagem">Ver os lotes <span>↓</span></a>
       </div>
+      <section class="cadastro" aria-labelledby="titulo-cadastro">
+        <h2 id="titulo-cadastro">Entre na disputa</h2>
+        <form id="formulario-cadastro" novalidate>
+          <label for="nome-usuario">Seu nome</label>
+          <div class="linha-cadastro">
+            <input id="nome-usuario" name="nome" type="text" autocomplete="name" maxlength="50" required placeholder="Digite seu nome" aria-describedby="mensagem-cadastro">
+            <button class="botao" type="submit">Cadastrar nome</button>
+          </div>
+        </form>
+        <p id="mensagem-cadastro" class="mensagem" role="status" aria-live="polite">Cadastre um nome para liberar os lances.</p>
+        <p class="nota">Simulação sem compras reais. Nomes e lances valem apenas nesta página e são apagados ao recarregar. Para simular outro participante, cadastre outro nome.</p>
+      </section>
     </div>
   </header>
 
   <main>
+    <noscript><p class="container mensagem">Ative o JavaScript para cadastrar seu nome, alternar o tema e dar lances.</p></noscript>
     <section class="secao container" id="garagem">
       <div class="titulo-secao">
         <div>
-          <p class="eyebrow">01 / GARAGEM</p>
-          <h2 class="titulo-secundario">Três referências,<br>um mesmo pulso.</h2>
+          <p class="eyebrow">01 / LOTES DISPONÍVEIS</p>
+          <h2 class="titulo-secundario">Escolha sua lenda.</h2>
         </div>
-        <p class="texto-descricao texto-curto">Projetados no Japão, ajustados nas ruas e eternizados por uma comunidade que valoriza cada detalhe mecânico.</p>
+        <p class="texto-descricao texto-curto">Valores em dólares americanos (US$). Primeiro lance a partir da abertura; depois, acréscimo mínimo de US$ 1.000. <a class="link-texto" href="#referencias">Entenda os valores ↓</a></p>
       </div>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
         <div class="col">
-        <article class="card card-carro h-100">
+        <article class="card card-carro h-100" data-carro="skyline">
           <div id="carouselSkyline" class="carousel slide carousel-card" data-bs-ride="carousel" data-bs-interval="6000">
             <span class="numero">01</span>
             <div class="carousel-indicators">
@@ -76,7 +91,7 @@
         </div>
 
         <div class="col">
-        <article class="card card-carro h-100">
+        <article class="card card-carro h-100" data-carro="supra">
           <div id="carouselSupra" class="carousel slide carousel-card" data-bs-ride="carousel" data-bs-interval="6000">
             <span class="numero">02</span>
             <div class="carousel-indicators">
@@ -108,7 +123,7 @@
         </div>
 
         <div class="col">
-        <article class="card card-carro h-100">
+        <article class="card card-carro h-100" data-carro="rx7">
           <div id="carouselMazda" class="carousel slide carousel-card" data-bs-ride="carousel" data-bs-interval="6000">
             <span class="numero">03</span>
             <div class="carousel-indicators">
@@ -155,7 +170,25 @@
     <section class="secao container sobre" id="sobre">
       <p class="eyebrow">03 / SOBRE O ACERVO</p>
       <h2 class="titulo-secundario">Fatos, números<br>e admiração.</h2>
-      <p class="texto-descricao texto-sobre">Arquivo Torque é um exercício visual sobre ícones japoneses de alta performance. As especificações podem variar por ano, mercado e edição; aqui, o foco são as configurações mais representativas de cada modelo.</p>
+      <p class="texto-descricao texto-sobre">Arquivo Torque é um projeto educativo sobre ícones japoneses de alta performance. Os lotes são fictícios e as fotos, ilustrativas. As especificações variam por ano, mercado e edição. O cadastro por nome identifica o participante nesta simulação; não cria uma conta com autenticação.</p>
+    </section>
+
+    <section class="container referencias" id="referencias" aria-labelledby="titulo-referencias">
+      <p class="eyebrow">04 / REFERÊNCIAS DE PREÇO</p>
+      <h2 id="titulo-referencias" class="titulo-secundario">De onde vêm os valores?</h2>
+      <p class="texto-descricao">A abertura equivale a 80% de uma venda documentada de cada modelo, arredondados para baixo ao milhar. Essa regra foi escolhida para a atividade. Os preços são de exemplares específicos, não uma avaliação dos carros das fotos nem uma cotação do mercado brasileiro.</p>
+      <div class="tabela-responsiva" role="region" aria-label="Valores de referência dos carros" tabindex="0">
+        <table>
+          <caption>Vendas em dólares americanos • fontes consultadas em 08/09/2026</caption>
+          <thead><tr><th scope="col">Modelo de referência</th><th scope="col">Venda documentada</th><th scope="col">Lance inicial</th><th scope="col">Fonte</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Skyline GT-R 1999</th><td>US$ 145.500,00</td><td>US$ 116.000,00</td><td><a href="https://bringatrailer.com/listing/1999-nissan-skyline-gt-r-59/" target="_blank" rel="noopener noreferrer">Bring a Trailer · 06/06/2025 ↗</a></td></tr>
+            <tr><th scope="row">Supra RZ 1995</th><td>US$ 80.640,00</td><td>US$ 64.000,00</td><td><a href="https://www.classic.com/a/broad-arrow-monterey-jet-center-2025-V4MB1Xn/lots/1995-toyota-supra-rz-4Z2k804/" target="_blank" rel="noopener noreferrer">Broad Arrow via CLASSIC.COM · 14/08/2025 ↗</a></td></tr>
+            <tr><th scope="row">RX-7 FD 1993</th><td>US$ 39.505,00</td><td>US$ 31.000,00</td><td><a href="https://bringatrailer.com/listing/1993-mazda-rx-7-us-can-85/" target="_blank" rel="noopener noreferrer">Bring a Trailer · 03/09/2025 ↗</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nota">Mantivemos a moeda original, sem conversão cambial. A abertura não inclui cálculo de taxas, frete, impostos ou importação. Estado de conservação, modificações e versão afetam o valor de cada exemplar.</p>
     </section>
   </main>
 
@@ -166,6 +199,24 @@
       <a href="#inicio" aria-label="Voltar ao início">↑ TOPO</a>
     </div>
   </footer>
+  <!-- O JavaScript reutiliza este modelo de formulário em cada carro. -->
+  <template id="modelo-leilao">
+    <section class="painel-leilao" aria-label="Lances do carro">
+      <p class="eyebrow">ABERTO PARA LANCES</p>
+      <p class="rotulo-preco">Lance inicial</p>
+      <p class="valor-lance"></p>
+      <p class="lider-lance">Nenhum lance recebido.</p>
+      <form class="formulario-lance" novalidate>
+        <label class="rotulo-lance">Seu lance (US$)
+          <input name="lance" type="text" inputmode="decimal" autocomplete="off" maxlength="20" required placeholder="Ex.: 116.000,00" disabled>
+        </label>
+        <p class="minimo-lance nota"></p>
+        <button class="botao" type="submit" disabled>Dar lance</button>
+        <p class="mensagem mensagem-lance" role="status" aria-live="polite">Cadastre seu nome para participar.</p>
+      </form>
+    </section>
+  </template>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
+
