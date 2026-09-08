@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <main class="container">
+        <section class="lista">
+            <h1>Lista de Tarefas</h1>
+
+            <form id="formulario">
+                <input id="tarefa" type="text" placeholder="Digite uma tarefa..." autocomplete="off">
+                <button type="submit">Adicionar</button>
+            </form>
+
+            <div class="cabecalho">
+                <span id="contador">0 tarefas</span>
+                <button id="limpar" type="button">Limpar tudo</button>
+            </div>
+
+            <ul id="tarefas"></ul>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
